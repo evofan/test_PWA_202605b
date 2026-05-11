@@ -33,8 +33,8 @@ const sound2 = new Howl({
 
 // ローカルデータが有った時のみ上書きする処理
 if (noList === null || noList.length === 0) {
-  console.log("ローカルストレージにデータが無いので100をテストで入れる");
-  noList = [100];
+ //console.log("ローカルストレージにデータが無いので100をテストで入れる");
+  noList = [];
 }
 console.log(noList);
 console.log(noList.length);
