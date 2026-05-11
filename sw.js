@@ -4,9 +4,7 @@
 const CACHE_NAME = '1DIV-cache-v1';
 
 const INITIAL_CACHED_RESOURCES = [
-	'/pwa/',
-	'/pwa/css/style.css',
-	'/pwa/drawer.js'
+	'/',
 ];
 
 self.addEventListener('install', event => {

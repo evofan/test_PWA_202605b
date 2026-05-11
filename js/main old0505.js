@@ -1,6 +1,7 @@
-function closeApp() {
+
+function closeApp(){
   alert("closeApp()");
-  //App.exitApp();
+      //App.exitApp();
 }
 
 // let noList = [100];
@@ -41,10 +42,12 @@ console.log(noList.length);
 
 function get_calc(btn) {
   if (btn.value === "=") {
-    // document.calculator.display.value = eval(document.calculator.display.value);
-    document.calculator.display.value = evaluate(
+    document.calculator.display.value = eval(document.calculator.display.value);
+    /*
+    document.calculator.display.value = myEval(
       document.calculator.display.value,
-    ).trim();
+    );
+    */
   } else if (btn.value === "C") {
     document.calculator.display.value = "";
 
@@ -65,10 +68,16 @@ function get_calc(btn) {
   }
 }
 
+function myEval(expr) {
+  console.log(expr);
+  console.log(Number(expr));
+  console.log(Function(expr)());
+  Function(expr)();
+}
+
 function setData(e) {
   console.log(e);
-  // let setNo = eval(document.calculator.display.value);
-  let setNo = evaluate(document.calculator.display.value).trim();
+  let setNo = eval(document.calculator.display.value);
   console.log(setNo);
   // 数値無し時
   if (setNo === "" || setNo === undefined) {
@@ -98,8 +107,7 @@ function setData(e) {
 
 function deleteData(e) {
   console.log(e);
-  // let deleteNo = eval(document.calculator.display.value);
-  let deleteNo = evaluate(document.calculator.display.value).trim();
+  let deleteNo = eval(document.calculator.display.value);
   console.log(deleteNo);
   // 数値無し時
   if (deleteNo === "" || deleteNo === undefined) {
@@ -131,8 +139,7 @@ function deleteData(e) {
 
 function checkData(e) {
   console.log("checkData!");
-  // let checkNo = eval(document.calculator.display.value);
-  let checkNo = evaluate(document.calculator.display.value).trim();
+  let checkNo = eval(document.calculator.display.value);
   console.log(checkNo);
 
   // 数値無し時
@@ -197,7 +204,7 @@ function deleteAllData(e) {
 function sortData(e) {
   console.log("sortData()");
 
-  let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+  let newList = noList.sort((a,b) => (a < b ? -1 : 1));
   console.log(newList);
   noList = newList;
 
