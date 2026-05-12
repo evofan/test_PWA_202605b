@@ -1,8 +1,3 @@
-function closeApp() {
-  alert("closeApp()");
-  //App.exitApp();
-}
-
 // let noList = [100];
 let noList = [];
 console.log(noList.length);
@@ -33,13 +28,15 @@ const sound2 = new Howl({
 
 // ローカルデータが有った時のみ上書きする処理
 if (noList === null || noList.length === 0) {
- //console.log("ローカルストレージにデータが無いので100をテストで入れる");
+  //console.log("ローカルストレージにデータが無いので100をテストで入れる");
   noList = [];
 }
 console.log(noList);
 console.log(noList.length);
 
 function get_calc(btn) {
+  // TODO: 1文字目が演算子の場合は消す
+
   if (btn.value === "=") {
     // document.calculator.display.value = eval(document.calculator.display.value);
     document.calculator.display.value = evaluate(
@@ -98,6 +95,7 @@ function setData(e) {
 
 function deleteData(e) {
   console.log(e);
+
   // let deleteNo = eval(document.calculator.display.value);
   let deleteNo = evaluate(document.calculator.display.value).trim();
   console.log(deleteNo);
@@ -185,6 +183,8 @@ function readData(e) {
 function deleteAllData(e) {
   console.log("deleteAllData");
 
+  // TODO: 確認用ダイアログ
+
   noList = [];
 
   localStorage.clear();
@@ -196,6 +196,8 @@ function deleteAllData(e) {
 
 function sortData(e) {
   console.log("sortData()");
+
+  // TODO: 確認用ダイアログ
 
   let newList = noList.sort((a, b) => (a < b ? -1 : 1));
   console.log(newList);
