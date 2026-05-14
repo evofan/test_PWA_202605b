@@ -195,23 +195,46 @@ function deleteAllData(e) {
 }
 
 function sortData(e) {
-  console.log("sortData()");
+  console.log("sortData()"); // ０埋め
 
-  // TODO: 確認用ダイアログ
+  // 確認用ダイアログ
+  const dialog = window.confirm("番号を昇順で並べ変えますか？");
+  if (dialog) {
+    for (let i = 0; i < noList.length; i++) {
+      console.log(i);
+      let result = zeroPadding(noList[i], 4);
+      noList[i] = result;
+    }
 
-  let newList = noList.sort((a, b) => (a < b ? -1 : 1));
-  console.log(newList);
-  noList = newList;
+    let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+    console.log(newList);
+    noList = newList;
 
-  // serialize
-  serializedAry = JSON.stringify(noList);
+    // serialize
+    serializedAry = JSON.stringify(noList);
 
-  // Local Storage
-  localStorage.setItem("savedataAry", serializedAry);
+    // Local Storage
+    localStorage.setItem("savedataAry", serializedAry);
 
-  document.calculator.display.value = "";
+    document.calculator.display.value = "";
 
-  alert("登録データを昇順でソートしました");
-  document.calculator.display.value = "";
-  console.log(noList);
+    alert("登録データを昇順でソートしました");
+    document.calculator.display.value = "";
+    console.log(noList);
+  } else {
+    event.preventDefault();
+    alert("ソートを中止しました");
+  }
 }
+
+/**
+ * 数値のゼロ埋め（桁を揃える）
+ * @param {number|string} number 対象の数字
+ * @param {number} [digit=0] 桁数
+ * @returns {string} ゼロが埋められた数字を返す
+ */
+const zeroPadding = (number, digit = 0) => {
+  const fillNumber = digit - String(number).length;
+
+  return fillNumber > 0 ? "0".repeat(fillNumber) + number : number;
+};
