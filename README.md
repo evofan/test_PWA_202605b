@@ -17,3 +17,9 @@ reference
 **Codepen Simple expression evaluation**  
 [https://codepen.io/caderek/pen/GgpzVOq?editors=0010](https://codepen.io/caderek/pen/GgpzVOq?editors=0010)  
 
+**【JavaScript入門】confirmで「はい/いいえ」のダイアログを表示する**  
+[https://techmania.jp/blog/javascript-confirm/](https://techmania.jp/blog/javascript-confirm/)  
+
+**数値のゼロ埋め（桁を揃える）**  
+[https://shanabrian.com/web/javascript/zero-padding.php](https://shanabrian.com/web/javascript/zero-padding.php)  
+
