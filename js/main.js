@@ -183,15 +183,18 @@ function readData(e) {
 function deleteAllData(e) {
   console.log("deleteAllData");
 
-  // TODO: 確認用ダイアログ
-
-  noList = [];
-
-  localStorage.clear();
-
-  alert("全ての登録データを削除しました");
-  document.calculator.display.value = "";
-  console.log(noList);
+  // 確認用ダイアログ
+  const dialog = window.confirm("登録データを全て削除してよろしいですか？");
+  if (dialog) {
+    noList = [];
+    localStorage.clear();
+    alert("全ての登録データを削除しました");
+    document.calculator.display.value = "";
+    console.log(noList);
+  } else {
+    event.preventDefault();
+    alert("削除を中止しました");
+  }
 }
 
 function sortData(e) {
@@ -200,13 +203,18 @@ function sortData(e) {
   // 確認用ダイアログ
   const dialog = window.confirm("番号を昇順で並べ変えますか？");
   if (dialog) {
-    for (let i = 0; i < noList.length; i++) {
-      console.log(i);
-      let result = zeroPadding(noList[i], 4);
-      noList[i] = result;
-    }
+    // 0パディング
+    // for (let i = 0; i < noList.length; i++) {
+    //   console.log(i);
+    //   let result = zeroPadding(noList[i], 4);
+    //   noList[i] = result;
+    // }
 
-    let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+    // ソート
+    //  let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+
+    // 桁数が異なってもOKなソート
+    let newList = noList.sort((a, b) => a - b);
     console.log(newList);
     noList = newList;
 
