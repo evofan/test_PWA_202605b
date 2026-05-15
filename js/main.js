@@ -1,4 +1,3 @@
-// let noList = [100];
 let noList = [];
 console.log(noList.length);
 
@@ -18,7 +17,6 @@ const sound1 = new Howl({
 const sound2 = new Howl({
   src: ["./sound/boo.mp3"],
 });
-//console.log("sound1",sound1);
 
 // Play the sound.
 //sound1.play();
@@ -35,7 +33,22 @@ console.log(noList);
 console.log(noList.length);
 
 function get_calc(btn) {
-  // TODO: 1文字目が演算子の場合は消す
+  // 1文字目が演算子の場合は消す
+  let val = document.calculator.display.value;
+  if (
+    (btn.value === "=" ||
+      btn.value === "×" ||
+      btn.value === "*" ||
+      btn.value === "÷" ||
+      btn.value === "+" ||
+      btn.value === "-") &&
+    (document.calculator.display.value === "" ||
+      document.calculator.display.value === null ||
+      document.calculator.display.value === undefined)
+  ) {
+    // alert("式の先頭が記号は不可");
+    return false;
+  }
 
   if (btn.value === "=") {
     // document.calculator.display.value = eval(document.calculator.display.value);
@@ -144,8 +157,6 @@ function checkData(e) {
       console.log(noList);
       // document.calculator.display.value = "";
 
-      // document.querySelector("#message").textContent = "Good Morning!";
-
       // let colorElemnt = document.getElementsByClassName('display_message');
       // let colorElemnt = document.getElementById("message");
       let colorElemnt = document.getElementsByClassName("display_message")[0];
@@ -176,15 +187,24 @@ function checkData(e) {
   console.log(noList);
 }
 
+/**
+ *
+ * @param {*} e
+ */
 function readData(e) {
   alert(noList);
 }
 
+/**
+ *
+ * @param {*} e
+ */
 function deleteAllData(e) {
   console.log("deleteAllData");
 
   // 確認用ダイアログ
   const dialog = window.confirm("登録データを全て削除してよろしいですか？");
+
   if (dialog) {
     noList = [];
     localStorage.clear();
@@ -197,11 +217,16 @@ function deleteAllData(e) {
   }
 }
 
+/**
+ * データをソートする（昇順）
+ * @param {*} e
+ */
 function sortData(e) {
   console.log("sortData()"); // ０埋め
 
   // 確認用ダイアログ
   const dialog = window.confirm("番号を昇順で並べ変えますか？");
+
   if (dialog) {
     // 0パディング
     // for (let i = 0; i < noList.length; i++) {
@@ -211,7 +236,7 @@ function sortData(e) {
     // }
 
     // ソート
-    //  let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+    // let newList = noList.sort((a, b) => (a < b ? -1 : 1));
 
     // 桁数が異なってもOKなソート
     let newList = noList.sort((a, b) => a - b);
@@ -236,7 +261,7 @@ function sortData(e) {
 }
 
 /**
- * 数値のゼロ埋め（桁を揃える）
+ * 数値のゼロ埋め（＝ゼロパディング、桁を揃える）
  * @param {number|string} number 対象の数字
  * @param {number} [digit=0] 桁数
  * @returns {string} ゼロが埋められた数字を返す
