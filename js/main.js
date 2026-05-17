@@ -1,12 +1,12 @@
-let noList = [];
-console.log(noList.length);
+let numList = [];
+console.log(numList.length);
 
 // serialize
 let serializedAry = localStorage.getItem("savedataAry");
 
 // Local Storage
-noList = JSON.parse(serializedAry);
-console.log(noList);
+numList = JSON.parse(serializedAry);
+console.log(numList);
 
 // sound
 
@@ -25,12 +25,12 @@ const sound2 = new Howl({
 // Howler.volume(0.5);
 
 // ローカルデータが有った時のみ上書きする処理
-if (noList === null || noList.length === 0) {
+if (numList === null || numList.length === 0) {
   //console.log("ローカルストレージにデータが無いので100をテストで入れる");
-  noList = [];
+  numList = [];
 }
-console.log(noList);
-console.log(noList.length);
+console.log(numList);
+console.log(numList.length);
 
 function get_calc(btn) {
   // 1文字目が演算子の場合は消す
@@ -85,8 +85,8 @@ function setData(e) {
     alert("番号が入力されていません");
     return false;
   }
-  for (let i = 0; i <= noList.length; i++) {
-    if (setNo === noList[i]) {
+  for (let i = 0; i <= numList.length; i++) {
+    if (setNo === numList[i]) {
       alert("その番号は既に登録済みです");
       document.calculator.display.value = "";
       return false;
@@ -96,11 +96,11 @@ function setData(e) {
   }
   alert(setNo + "番を新たに登録しました");
   document.calculator.display.value = "";
-  noList.push(setNo);
-  console.log(noList);
+  numList.push(setNo);
+  console.log(numList);
 
   // serialize
-  serializedAry = JSON.stringify(noList);
+  serializedAry = JSON.stringify(numList);
 
   // Local Storage
   localStorage.setItem("savedataAry", serializedAry);
@@ -117,14 +117,14 @@ function deleteData(e) {
     alert("番号が入力されていません");
     return false;
   }
-  for (let i = 0; i <= noList.length; i++) {
-    if (deleteNo === noList[i]) {
+  for (let i = 0; i <= numList.length; i++) {
+    if (deleteNo === numList[i]) {
       alert(deleteNo + "番を登録から削除します");
-      noList.splice(i, 1);
-      console.log(noList);
+      numList.splice(i, 1);
+      console.log(numList);
 
       // serialize
-      serializedAry = JSON.stringify(noList);
+      serializedAry = JSON.stringify(numList);
 
       // Local Storage
       localStorage.setItem("savedataAry", serializedAry);
@@ -137,7 +137,7 @@ function deleteData(e) {
   }
   alert("その番号は登録内に見つかりませんでした");
   document.calculator.display.value = "";
-  console.log(noList);
+  console.log(numList);
 }
 
 function checkData(e) {
@@ -151,10 +151,10 @@ function checkData(e) {
     alert("番号が入力されていません");
     return false;
   }
-  for (let i = 0; i <= noList.length; i++) {
-    if (checkNo === noList[i]) {
+  for (let i = 0; i <= numList.length; i++) {
+    if (checkNo === numList[i]) {
       // alert("その番号は禁止リストに有ります！");
-      console.log(noList);
+      console.log(numList);
       // document.calculator.display.value = "";
 
       // let colorElemnt = document.getElementsByClassName('display_message');
@@ -182,17 +182,16 @@ function checkData(e) {
       document.calculator.display_message.value = "〇 その番号はOKです！";
     }
   }
-  // alert("その番号は禁止リストに見つかりませんでした");
+
   // document.calculator.display.value = "";
-  console.log(noList);
+  console.log(numList);
 }
 
 /**
- *
- * @param {*} e
+ * 登録一覧を表示する
  */
-function readData(e) {
-  alert(noList);
+function displayRegistrationList() {
+  alert(numList);
 }
 
 /**
@@ -206,11 +205,11 @@ function deleteAllData(e) {
   const dialog = window.confirm("登録データを全て削除してよろしいですか？");
 
   if (dialog) {
-    noList = [];
+    numList = [];
     localStorage.clear();
     alert("全ての登録データを削除しました");
     document.calculator.display.value = "";
-    console.log(noList);
+    console.log(numList);
   } else {
     event.preventDefault();
     alert("削除を中止しました");
@@ -229,22 +228,22 @@ function sortData(e) {
 
   if (dialog) {
     // 0パディング
-    // for (let i = 0; i < noList.length; i++) {
+    // for (let i = 0; i < numList.length; i++) {
     //   console.log(i);
-    //   let result = zeroPadding(noList[i], 4);
-    //   noList[i] = result;
+    //   let result = zeroPadding(numList[i], 4);
+    //   numList[i] = result;
     // }
 
     // ソート
-    // let newList = noList.sort((a, b) => (a < b ? -1 : 1));
+    // let newList = numList.sort((a, b) => (a < b ? -1 : 1));
 
     // 桁数が異なってもOKなソート
-    let newList = noList.sort((a, b) => a - b);
+    let newList = numList.sort((a, b) => a - b);
     console.log(newList);
-    noList = newList;
+    numList = newList;
 
     // serialize
-    serializedAry = JSON.stringify(noList);
+    serializedAry = JSON.stringify(numList);
 
     // Local Storage
     localStorage.setItem("savedataAry", serializedAry);
@@ -253,7 +252,7 @@ function sortData(e) {
 
     alert("登録データを昇順でソートしました");
     document.calculator.display.value = "";
-    console.log(noList);
+    console.log(numList);
   } else {
     event.preventDefault();
     alert("ソートを中止しました");
