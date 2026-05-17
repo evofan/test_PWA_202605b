@@ -1,36 +1,30 @@
+// No.登録用
 let numList = [];
-console.log(numList.length);
 
-// serialize
+// Load from Local Storage
 let serializedAry = localStorage.getItem("savedataAry");
 
-// Local Storage
+// Deserialize
 numList = JSON.parse(serializedAry);
 console.log(numList);
 
 // sound
-
 // Setup the new Howl.
 const sound1 = new Howl({
-  src: ["./sound/pingpong.mp3"],
+  src: ["./sound/pingpong.mp3"], // OK
 });
 const sound2 = new Howl({
-  src: ["./sound/boo.mp3"],
+  src: ["./sound/boo.mp3"], // NG
 });
-
-// Play the sound.
-//sound1.play();
 
 // Change global volume.
 // Howler.volume(0.5);
 
-// ローカルデータが有った時のみ上書きする処理
+// ローカルデータが無かった時のみ上書きする処理
 if (numList === null || numList.length === 0) {
-  //console.log("ローカルストレージにデータが無いので100をテストで入れる");
-  numList = [];
+  // console.log("ローカルストレージにデータが無いので100をテストで入れる");
+  // numList = [100];
 }
-console.log(numList);
-console.log(numList.length);
 
 /**
  * 計算する
@@ -105,10 +99,10 @@ function setData() {
   document.calculator.display.value = "";
   numList.push(setNo);
 
-  // serialize
+  // Serialize
   serializedAry = JSON.stringify(numList);
 
-  // Local Storage
+  // Save for Local Storage
   localStorage.setItem("savedataAry", serializedAry);
 }
 
@@ -126,13 +120,13 @@ function deleteData() {
   }
   for (let i = 0; i <= numList.length; i++) {
     if (deleteNo === numList[i]) {
-      alert(deleteNo + "番を登録から削除します");
+      alert(`${deleteNo}番を登録から削除します`);
       numList.splice(i, 1);
 
-      // serialize
+      // Serialize
       serializedAry = JSON.stringify(numList);
 
-      // Local Storage
+      // Save for Local Storage
       localStorage.setItem("savedataAry", serializedAry);
 
       document.calculator.display.value = "";
@@ -141,7 +135,7 @@ function deleteData() {
       console.log("登録データ内に無し");
     }
   }
-  alert("その番号は登録内に見つかりませんでした");
+  alert("その番号は登録データ内に見つかりませんでした");
   document.calculator.display.value = "";
 }
 
@@ -183,7 +177,7 @@ function checkData() {
 }
 
 /**
- * 登録一覧を表示する
+ * 登録データ一覧を表示する
  */
 function displayRegistrationList() {
   alert(numList);
@@ -231,10 +225,10 @@ function sortData() {
     console.log(newList);
     numList = newList;
 
-    // serialize
+    // Serialize
     serializedAry = JSON.stringify(numList);
 
-    // Local Storage
+    // Save for Local Storage
     localStorage.setItem("savedataAry", serializedAry);
 
     document.calculator.display.value = "";
