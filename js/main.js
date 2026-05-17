@@ -32,7 +32,14 @@ if (numList === null || numList.length === 0) {
 console.log(numList);
 console.log(numList.length);
 
+/**
+ * 計算する
+ * @param { object } btn
+ * @returns
+ */
 function get_calc(btn) {
+  // console.log(btn);
+  // console.log(typeof btn); // object
   // 1文字目が演算子の場合は消す
   let val = document.calculator.display.value;
   if (
@@ -51,7 +58,6 @@ function get_calc(btn) {
   }
 
   if (btn.value === "=") {
-    // document.calculator.display.value = eval(document.calculator.display.value);
     document.calculator.display.value = evaluate(
       document.calculator.display.value,
     ).trim();
@@ -60,7 +66,6 @@ function get_calc(btn) {
 
     let colorElemnt = document.getElementsByClassName("display_message")[0];
     colorElemnt.style.setProperty("background-color", "white");
-    // colorElemnt.style.setProperty("color", "white");
 
     document.calculator.display_message.value = "";
   } else {
@@ -75,11 +80,12 @@ function get_calc(btn) {
   }
 }
 
-function setData(e) {
-  console.log(e);
-  // let setNo = eval(document.calculator.display.value);
+/**
+ * データを登録する
+ * @returns
+ */
+function setData() {
   let setNo = evaluate(document.calculator.display.value).trim();
-  console.log(setNo);
   // 数値無し時
   if (setNo === "" || setNo === undefined) {
     alert("番号が入力されていません");
@@ -91,13 +97,13 @@ function setData(e) {
       document.calculator.display.value = "";
       return false;
     } else {
-      console.log("いいえ");
+      console.log("登録データ内に無し");
     }
   }
-  alert(setNo + "番を新たに登録しました");
+  alert(`${setNo}番を新たに登録しました`);
+
   document.calculator.display.value = "";
   numList.push(setNo);
-  console.log(numList);
 
   // serialize
   serializedAry = JSON.stringify(numList);
@@ -106,12 +112,13 @@ function setData(e) {
   localStorage.setItem("savedataAry", serializedAry);
 }
 
-function deleteData(e) {
-  console.log(e);
-
-  // let deleteNo = eval(document.calculator.display.value);
+/**
+ * （1つの）データを削除する
+ * @returns
+ */
+function deleteData() {
   let deleteNo = evaluate(document.calculator.display.value).trim();
-  console.log(deleteNo);
+
   // 数値無し時
   if (deleteNo === "" || deleteNo === undefined) {
     alert("番号が入力されていません");
@@ -121,7 +128,6 @@ function deleteData(e) {
     if (deleteNo === numList[i]) {
       alert(deleteNo + "番を登録から削除します");
       numList.splice(i, 1);
-      console.log(numList);
 
       // serialize
       serializedAry = JSON.stringify(numList);
@@ -132,19 +138,19 @@ function deleteData(e) {
       document.calculator.display.value = "";
       return false;
     } else {
-      console.log("いいえ");
+      console.log("登録データ内に無し");
     }
   }
   alert("その番号は登録内に見つかりませんでした");
   document.calculator.display.value = "";
-  console.log(numList);
 }
 
-function checkData(e) {
-  console.log("checkData!");
-  // let checkNo = eval(document.calculator.display.value);
+/**
+ * 入力データが登録データ内に有るかチェックする
+ * @returns
+ */
+function checkData() {
   let checkNo = evaluate(document.calculator.display.value).trim();
-  console.log(checkNo);
 
   // 数値無し時
   if (checkNo === "" || checkNo === undefined) {
@@ -153,14 +159,8 @@ function checkData(e) {
   }
   for (let i = 0; i <= numList.length; i++) {
     if (checkNo === numList[i]) {
-      // alert("その番号は禁止リストに有ります！");
-      console.log(numList);
-      // document.calculator.display.value = "";
-
-      // let colorElemnt = document.getElementsByClassName('display_message');
-      // let colorElemnt = document.getElementById("message");
+      // console.log("その番号は禁止リストに有ります！");
       let colorElemnt = document.getElementsByClassName("display_message")[0];
-      console.log(colorElemnt);
       colorElemnt.style.setProperty("background-color", "red");
       colorElemnt.style.setProperty("color", "white");
 
@@ -170,10 +170,8 @@ function checkData(e) {
 
       return false;
     } else {
-      console.log("禁止リストには無し");
-
+      // console.log("禁止リストには無し");
       let colorElemnt = document.getElementsByClassName("display_message")[0];
-      console.log(colorElemnt);
       colorElemnt.style.setProperty("background-color", "green");
       colorElemnt.style.setProperty("color", "white");
 
@@ -182,9 +180,6 @@ function checkData(e) {
       document.calculator.display_message.value = "〇 その番号はOKです！";
     }
   }
-
-  // document.calculator.display.value = "";
-  console.log(numList);
 }
 
 /**
@@ -195,12 +190,9 @@ function displayRegistrationList() {
 }
 
 /**
- *
- * @param {*} e
+ * 登録データを全て削除する
  */
-function deleteAllData(e) {
-  console.log("deleteAllData");
-
+function deleteAllData() {
   // 確認用ダイアログ
   const dialog = window.confirm("登録データを全て削除してよろしいですか？");
 
@@ -212,17 +204,14 @@ function deleteAllData(e) {
     console.log(numList);
   } else {
     event.preventDefault();
-    alert("削除を中止しました");
+    alert("データ削除を中止しました");
   }
 }
 
 /**
- * データをソートする（昇順）
- * @param {*} e
+ * 登録データをソートする（昇順）
  */
-function sortData(e) {
-  console.log("sortData()"); // ０埋め
-
+function sortData() {
   // 確認用ダイアログ
   const dialog = window.confirm("番号を昇順で並べ変えますか？");
 
@@ -251,8 +240,6 @@ function sortData(e) {
     document.calculator.display.value = "";
 
     alert("登録データを昇順でソートしました");
-    document.calculator.display.value = "";
-    console.log(numList);
   } else {
     event.preventDefault();
     alert("ソートを中止しました");
