@@ -23,7 +23,7 @@ const sound2 = new Howl({
 // ローカルデータが無かった時のみ上書きする処理
 if (numList === null || numList.length === 0) {
   // console.log("ローカルストレージにデータが無いので100をテストで入れる");
-  // numList = [100];
+  numList = [];
 }
 
 /**
